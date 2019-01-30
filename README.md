@@ -1,2 +1,3 @@
 # Computer
-Custom ISA computer written in Verilog
+
+My hardware implementation of a fully-functioning computer with a custom-designed ISA, written in Verilog.
