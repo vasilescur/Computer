@@ -1,0 +1,215 @@
+Instruction Set
+
+
+Instr:  0 0 0 0   0 0 0 0   0 0 0 0   0 0 0 0
+
+Structure:
+
+                            ( reg )
+                                        ( ---- value ---- )
+        Operation type      Param 1     Param 2     Param 3
+        0 0 0 0             0 0 0 0     0 0 0 0     0 0 0 0
+
+Operation types:
+
+nop     0 0 0 0     0 0 0 0     0 0 0 0     0 0 0 0     # Does nothing
+
+
+
+
+# Move from one register to another
+mov     0 0 0 1
+
+Example:
+mov $1, $2      # Move the value of $2 into register $1
+        mov         $1          $2          
+        0 0 0 1     0 0 0 1     0 0 1 0     0 0 0 0
+
+
+
+
+# Load an immediate value / int or char literal
+li  $1, 4       # Set register $1 to 0100 (4)
+        li          $1          (  ---   4   ---  )
+        0 0 1 0     0 0 0 1     0 0 0 0     0 0 1 0
+
+
+
+
+# Add registers
+add     0 0 1 1
+
+Example:
+add $1, $2      # Add the value of $2 on top of $1 (leaving $2 intact)
+                # Aka $1 += $2
+        add         $1          $2
+        0 0 1 1     0 0 0 1     0 0 1 0     0 0 0 0
+
+
+
+
+# Add immediate
+addi    0 1 0 0
+
+Example:
+addi $1, 6      # Add 6 to (on top of) register $1
+        addi        $1          (  ----  6 -----  )
+        0 1 0 0     0 0 0 1     0 0 0 0     0 1 1 0
+
+
+
+
+# Subtract registers
+This will be a macro in the assembler.
+It will emit code that adds the 2's complement inverse.
+Same for subtracting immediate.
+
+Syntax: .sub $1, $2      # $1 = $1 - $2  --> {
+
+            mov $8, $2      # $8 is a temp register, not to be used normally
+            neg $8
+            addi $8, 1
+            add $1, $8
+
+        }
+
+        .subi $1, 4      $ $1 = $1 - 4   --> {
+
+            li $8, 4
+            neg $8
+            addi $8, 1
+            add $1, $8
+
+        }
+
+
+
+
+# Negate register (2's complement)
+neg     0 1 0 1      
+
+Example:
+neg $1      # $1 = NOT $1 + 1
+        neg         $1
+        0 1 0 1     0 0 0 1     0 0 0 0     0 0 0 0 
+
+
+
+
+# Fetch word from memory into register
+lw      0 1 1 0
+
+Examples:
+lw  $1, $2       # Load word into $1 from the memory value at address $2
+        lw          $1          $2
+        0 1 1 0     0 0 0 1     0 0 1 0     0 0 0 0
+
+
+
+
+# Store word from register into memory
+sw      0 1 1 1
+
+Examples:
+sw  $1, $2      # Store value of $1 into memory at address $2
+        sw          $1          $2          
+        0 1 1 1     0 0 0 1     0 0 1 0     0 0 0 0
+
+
+
+
+# Syscalls
+syscall 1 0 0 0
+
+Examples:
+syscall         # Execute syscall (syscall number is in register $8)
+        syscall
+        1 0 0 0     0 0 0 0     0 0 0 0     0 0 0 0
+
+# Syscall numbers
+
+0 0 0 0   0 0 0 0  (00)   no op
+0 0 0 0   0 0 0 1  (01)   print value in $1 as ASCII to the tty
+0 0 0 0   0 0 1 0  (02)   read one character from keyboard as ASCII into $1
+0 0 0 0   0 0 1 1  (03)   clear all registers to 0
+...                   # Future syscalls go here
+0 0 0 0   1 1 1 1  (0F)   halt program-- stops clock
+
+
+
+
+# Unconditional jump (to label)
+j       1 0 0 1
+
+Examples:
+j   _label
+        j           (ins. by assembler)
+        1 0 0 1     X X X X     X X X X     0 0 0 0 
+
+
+
+
+# Jump to address
+ja      1 0 1 0
+
+Examples:
+ja  $2
+        ja          $2
+        1 0 1 0     0 0 1 0     0 0 0 0     0 0 0 0 
+
+
+
+
+# Compare registers
+cmp     1 0 1 1
+
+Examples:
+cmp $1, $2      # Compare $1 and $2
+        cmp         $1          $2
+        1 0 1 1     0 0 0 1     0 0 1 0     0 0 0 0 
+
+
+
+
+# Jump if equal
+jeq     1 1 0 0
+
+Examples:
+jeq _label      # If the last comparison was equal, jump to label
+        jeq         (ins. by assembler)
+        1 1 0 0     X X X X     X X X X     0 0 0 0 
+
+
+
+# Jump if less than
+jlt     1 1 0 1
+
+
+# Jump if greater than
+jgt     1 1 1 0
+
+
+# Jump if not equal to
+jne     1 1 1 1 
+
+
+
+# Summary Table
+Binary      Hex     Reg     Instruction
+------------------------------------
+0 0 0 0     0       $0      nop
+0 0 0 1     1       $1      mov
+0 0 1 0     2       $2      li
+0 0 1 1     3       $3      add
+0 1 0 0     4       $4      addi
+0 1 0 1     5       $5      neg
+0 1 1 0     6       $6      lw
+0 1 1 1     7       $7      sw
+1 0 0 0     8       $8      syscall
+1 0 0 1     9       $cmp    j
+1 0 1 0     A       $sp     ja
+1 0 1 1     B       $sf     cmp
+1 1 0 0     C       $pc     jeq
+1 1 0 1     D               jlt
+1 1 1 0     E               jgt
+1 1 1 1     F               jne
