@@ -2,9 +2,7 @@
 `define mod_rom
 
 module rom (
-        input wire clock,
         input wire [7:0] address,
-
         output wire [15:0] data
     );
 

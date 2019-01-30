@@ -28,9 +28,7 @@ module template ();
         read2_value,
 
         write_id,
-        write_value,
-
-        clock
+        write_value
     );
     
     initial begin
@@ -54,7 +52,7 @@ module template ();
         write_id = 2;
         write_value = 8'b0101_0101;
         read1_id = 2;
-        #30; `assert(read1_value, 8'b0101_0101, "Write to reg, read --> same value");
+        #10; `assert(read1_value, 8'b0101_0101, "Write to reg, read --> same value");
 
         //*TEST
         read1_id = 3;

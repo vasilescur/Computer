@@ -14,9 +14,7 @@ module register_block (
         output [7:0] read2_value,
 
         input [3:0] write_id,
-        input [7:0] write_value,
-
-        input wire clock
+        input [7:0] write_value
     );
 
     wire [7:0] data;
@@ -28,19 +26,19 @@ module register_block (
 
     reg const_hi = 1;
 
-    register reg_0 (clock, data, value[0], enable[0]);
-    register reg_1 (clock, data, value[1], enable[1]);
-    register reg_2 (clock, data, value[2], enable[2]);
-    register reg_3 (clock, data, value[3], enable[3]);
-    register reg_4 (clock, data, value[4], enable[4]);
-    register reg_5 (clock, data, value[5], enable[5]);
-    register reg_6 (clock, data, value[6], enable[6]);
-    register reg_7 (clock, data, value[7], enable[7]);
-    register reg_8 (clock, data, value[8], enable[8]);
-    register reg_cmp (clock, data, value[9], enable[9]);
-    register reg_sp (clock, data, value[10], enable[10]);
-    register reg_sf (clock, data, value[11], enable[11]);
-    register reg_pc (clock, data, value[12], enable[12]);
+    register reg_0 (data, value[0], enable[0]);
+    register reg_1 (data, value[1], enable[1]);
+    register reg_2 (data, value[2], enable[2]);
+    register reg_3 (data, value[3], enable[3]);
+    register reg_4 (data, value[4], enable[4]);
+    register reg_5 (data, value[5], enable[5]);
+    register reg_6 (data, value[6], enable[6]);
+    register reg_7 (data, value[7], enable[7]);
+    register reg_8 (data, value[8], enable[8]);
+    register reg_cmp (data, value[9], enable[9]);
+    register reg_sp (data, value[10], enable[10]);
+    register reg_sf (data, value[11], enable[11]);
+    register reg_pc (data, value[12], enable[12]);
     
     mux_thicc #(8) read1_mux (
         value[0], value[1], value[2], value[3], value[4], value[5], value[6], value[7], value[8],
