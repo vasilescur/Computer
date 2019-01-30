@@ -49,6 +49,10 @@ module template ();
         #10; `assert(read1_value, 8'b0000_0000, "Nonexistent reg is 0");
 
         //*TEST
+        read1_id = 0;
+        #10; `assert(read1_value, 8'b0000_0000, "Reg_0 is 0");
+
+        //*TEST
         write_id = 2;
         write_value = 8'b0101_0101;
         read1_id = 2;
@@ -59,7 +63,13 @@ module template ();
         #10; `assert(read1_value, 8'b0000_0000, "Other reg is still 0");
 
         //*TEST
+        write_id = 0;
+        read1_id = 2;
+        #10; `assert(read1_value, 8'b0101_0101, "Value is permanent");
 
+        //*TEST
+        read1_id = 0;
+        #10; `assert(read1_value, 8'b0000_0000, "Writing to reg_0 fails");
 
 
         $display("Pass: %0d, Fail: %0d", pass, fail);

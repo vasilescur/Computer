@@ -9,13 +9,7 @@ module rom_tb ();
     reg [7:0] address;
     wire [15:0] data;
 
-    reg clock = 0;
-    always #10 begin
-        clock = ~clock;
-    end
-
     rom dut (
-        .clock (clock),
         .address (address),
         .data (data)
     );
@@ -31,8 +25,16 @@ module rom_tb ();
 
         for (i = 0; i < 256; i++) begin
             address = i;
-            #10; $display("    Addr: %h\tValue: %h", address, data);
+            #10; 
+
+            if (i % 8 == 0) begin
+                $write("\n   %0h\t", address);
+            end
+
+            $write(" %h", data);
         end
+
+        $write("\n");
 
         $display("  Done printing, assuming pass.");
         pass++;

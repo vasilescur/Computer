@@ -25,8 +25,9 @@ module register_block (
     wire enable[0:12];
 
     reg const_hi = 1;
+    reg const_lo = 0;
 
-    register reg_0 (data, value[0], enable[0]);
+    register reg_0 (data, value[0], const_lo);  // reg_0 is read-only
     register reg_1 (data, value[1], enable[1]);
     register reg_2 (data, value[2], enable[2]);
     register reg_3 (data, value[3], enable[3]);
@@ -69,6 +70,10 @@ module register_block (
         .out_c (enable[12]),    .out_d (enable[0]),
         .out_e (enable[0]),     .out_f (enable[0])
     );
+
+    always @ (write_id or write_value) begin
+
+    end
 
 endmodule
 

@@ -6,85 +6,80 @@
 :vpi_module "vhdl_sys";
 :vpi_module "v2005_math";
 :vpi_module "va_math";
-S_0x7f92b65000c0 .scope module, "rom_tb" "rom_tb" 2 5;
+S_0x7ffeb7d000c0 .scope module, "rom_tb" "rom_tb" 2 5;
  .timescale 0 0;
-v0x7f92b65193f0_0 .var "address", 7 0;
-v0x7f92b65194a0_0 .var "clock", 0 0;
-v0x7f92b6519550_0 .net "data", 15 0, L_0x7f92b6519a90;  1 drivers
-v0x7f92b6519620_0 .var/i "fail", 31 0;
-v0x7f92b65196b0_0 .var/i "i", 31 0;
-v0x7f92b6519790_0 .var/i "pass", 31 0;
-S_0x7f92b6509300 .scope module, "dut" "rom" 2 17, 3 4 0, S_0x7f92b65000c0;
+v0x7ffeb7d18c50_0 .var "address", 7 0;
+v0x7ffeb7d18d00_0 .net "data", 15 0, L_0x7ffeb7d19240;  1 drivers
+v0x7ffeb7d18db0_0 .var/i "fail", 31 0;
+v0x7ffeb7d18e60_0 .var/i "i", 31 0;
+v0x7ffeb7d18f00_0 .var/i "pass", 31 0;
+S_0x7ffeb7d08b60 .scope module, "dut" "rom" 2 12, 3 4 0, S_0x7ffeb7d000c0;
  .timescale 0 0;
-    .port_info 0 /INPUT 1 "clock"
-    .port_info 1 /INPUT 8 "address"
-    .port_info 2 /OUTPUT 16 "data"
-L_0x7f92b6519a90 .functor BUFZ 16, L_0x7f92b6519840, C4<0000000000000000>, C4<0000000000000000>, C4<0000000000000000>;
-v0x7f92b6501710_0 .net *"_s0", 15 0, L_0x7f92b6519840;  1 drivers
-v0x7f92b6518f70_0 .net *"_s2", 9 0, L_0x7f92b6519910;  1 drivers
-L_0x10b68a008 .functor BUFT 1, C4<00>, C4<0>, C4<0>, C4<0>;
-v0x7f92b6519020_0 .net *"_s5", 1 0, L_0x10b68a008;  1 drivers
-v0x7f92b65190e0_0 .net "address", 7 0, v0x7f92b65193f0_0;  1 drivers
-v0x7f92b6519190_0 .net "clock", 0 0, v0x7f92b65194a0_0;  1 drivers
-v0x7f92b6519270_0 .net "data", 15 0, L_0x7f92b6519a90;  alias, 1 drivers
-v0x7f92b6519320 .array "internal", 256 0, 15 0;
-L_0x7f92b6519840 .array/port v0x7f92b6519320, L_0x7f92b6519910;
-L_0x7f92b6519910 .concat [ 8 2 0 0], v0x7f92b65193f0_0, L_0x10b68a008;
-    .scope S_0x7f92b6509300;
+    .port_info 0 /INPUT 8 "address"
+    .port_info 1 /OUTPUT 16 "data"
+L_0x7ffeb7d19240 .functor BUFZ 16, L_0x7ffeb7d18ff0, C4<0000000000000000>, C4<0000000000000000>, C4<0000000000000000>;
+v0x7ffeb7d087e0_0 .net *"_s0", 15 0, L_0x7ffeb7d18ff0;  1 drivers
+v0x7ffeb7d18890_0 .net *"_s2", 9 0, L_0x7ffeb7d190c0;  1 drivers
+L_0x10dc2e008 .functor BUFT 1, C4<00>, C4<0>, C4<0>, C4<0>;
+v0x7ffeb7d18930_0 .net *"_s5", 1 0, L_0x10dc2e008;  1 drivers
+v0x7ffeb7d189e0_0 .net "address", 7 0, v0x7ffeb7d18c50_0;  1 drivers
+v0x7ffeb7d18a90_0 .net "data", 15 0, L_0x7ffeb7d19240;  alias, 1 drivers
+v0x7ffeb7d18b80 .array "internal", 256 0, 15 0;
+L_0x7ffeb7d18ff0 .array/port v0x7ffeb7d18b80, L_0x7ffeb7d190c0;
+L_0x7ffeb7d190c0 .concat [ 8 2 0 0], v0x7ffeb7d18c50_0, L_0x10dc2e008;
+    .scope S_0x7ffeb7d08b60;
 T_0 ;
-    %vpi_call 3 15 "$readmemh", "../romImage.rom", v0x7f92b6519320, 32'sb00000000000000000000000000000000 {0 0 0};
+    %vpi_call 3 13 "$readmemh", "../romImage.rom", v0x7ffeb7d18b80, 32'sb00000000000000000000000000000000 {0 0 0};
     %end;
     .thread T_0;
-    .scope S_0x7f92b65000c0;
+    .scope S_0x7ffeb7d000c0;
 T_1 ;
-    %pushi/vec4 0, 0, 1;
-    %store/vec4 v0x7f92b65194a0_0, 0, 1;
     %pushi/vec4 0, 0, 32;
-    %store/vec4 v0x7f92b65196b0_0, 0, 32;
+    %store/vec4 v0x7ffeb7d18e60_0, 0, 32;
     %end;
     .thread T_1;
-    .scope S_0x7f92b65000c0;
+    .scope S_0x7ffeb7d000c0;
 T_2 ;
-    %delay 10, 0;
-    %load/vec4 v0x7f92b65194a0_0;
-    %inv;
-    %store/vec4 v0x7f92b65194a0_0, 0, 1;
-    %jmp T_2;
-    .thread T_2;
-    .scope S_0x7f92b65000c0;
-T_3 ;
-    %vpi_call 2 26 "$display", "Starting test suite: rom_tb" {0 0 0};
+    %vpi_call 2 20 "$display", "Starting test suite: rom_tb" {0 0 0};
     %pushi/vec4 0, 0, 32;
-    %store/vec4 v0x7f92b6519790_0, 0, 32;
+    %store/vec4 v0x7ffeb7d18f00_0, 0, 32;
     %pushi/vec4 0, 0, 32;
-    %store/vec4 v0x7f92b6519620_0, 0, 32;
-    %vpi_call 2 30 "$display", "  Printing contents of ROM..." {0 0 0};
+    %store/vec4 v0x7ffeb7d18db0_0, 0, 32;
+    %vpi_call 2 24 "$display", "  Printing contents of ROM..." {0 0 0};
     %pushi/vec4 0, 0, 32;
-    %store/vec4 v0x7f92b65196b0_0, 0, 32;
-T_3.0 ;
-    %load/vec4 v0x7f92b65196b0_0;
+    %store/vec4 v0x7ffeb7d18e60_0, 0, 32;
+T_2.0 ;
+    %load/vec4 v0x7ffeb7d18e60_0;
     %cmpi/s 256, 0, 32;
-    %jmp/0xz T_3.1, 5;
-    %load/vec4 v0x7f92b65196b0_0;
+    %jmp/0xz T_2.1, 5;
+    %load/vec4 v0x7ffeb7d18e60_0;
     %pad/s 8;
-    %store/vec4 v0x7f92b65193f0_0, 0, 8;
+    %store/vec4 v0x7ffeb7d18c50_0, 0, 8;
     %delay 10, 0;
-    %vpi_call 2 34 "$display", "    Addr: %h\011Value: %h", v0x7f92b65193f0_0, v0x7f92b6519550_0 {0 0 0};
-    %load/vec4 v0x7f92b65196b0_0;
+    %load/vec4 v0x7ffeb7d18e60_0;
+    %pushi/vec4 8, 0, 32;
+    %mod/s;
+    %cmpi/e 0, 0, 32;
+    %jmp/0xz  T_2.2, 4;
+    %vpi_call 2 31 "$write", "\012   %0h\011", v0x7ffeb7d18c50_0 {0 0 0};
+T_2.2 ;
+    %vpi_call 2 34 "$write", " %h", v0x7ffeb7d18d00_0 {0 0 0};
+    %load/vec4 v0x7ffeb7d18e60_0;
     %pushi/vec4 1, 0, 32;
     %add;
-    %store/vec4 v0x7f92b65196b0_0, 0, 32;
-    %jmp T_3.0;
-T_3.1 ;
-    %vpi_call 2 37 "$display", "  Done printing, assuming pass." {0 0 0};
-    %load/vec4 v0x7f92b6519790_0;
+    %store/vec4 v0x7ffeb7d18e60_0, 0, 32;
+    %jmp T_2.0;
+T_2.1 ;
+    %vpi_call 2 37 "$write", "\012" {0 0 0};
+    %vpi_call 2 39 "$display", "  Done printing, assuming pass." {0 0 0};
+    %load/vec4 v0x7ffeb7d18f00_0;
     %pushi/vec4 1, 0, 32;
     %add;
-    %store/vec4 v0x7f92b6519790_0, 0, 32;
-    %vpi_call 2 40 "$display", "Pass: %0d, Fail: %0d", v0x7f92b6519790_0, v0x7f92b6519620_0 {0 0 0};
-    %vpi_call 2 41 "$finish" {0 0 0};
+    %store/vec4 v0x7ffeb7d18f00_0, 0, 32;
+    %vpi_call 2 42 "$display", "Pass: %0d, Fail: %0d", v0x7ffeb7d18f00_0, v0x7ffeb7d18db0_0 {0 0 0};
+    %vpi_call 2 43 "$finish" {0 0 0};
     %end;
-    .thread T_3;
+    .thread T_2;
 # The file index is used to find the file name in the following table.
 :file_names 4;
     "N/A";
