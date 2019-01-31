@@ -5,8 +5,8 @@ module demux #(parameter dw = 1) (
         input wire [dw - 1:0] in,
         input wire select,
 
-        output [dw - 1:0] out_a;
-        output [dw - 1:0] out_b;
+        output [dw - 1:0] out_a,
+        output [dw - 1:0] out_b
     );
 
     assign out_a = select ? 0 : in;

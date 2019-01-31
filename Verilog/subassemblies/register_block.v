@@ -72,6 +72,12 @@ module register_block (
     );
 
     always @ (write_id or write_value) begin
+        //if (write_id !== 0)
+            //$display("    Set $%d to 0x%h", write_id, write_value);
+
+        if (write_id === 9) begin
+            $display("Writing to $cmp: %d", write_value);
+        end
 
     end
 
