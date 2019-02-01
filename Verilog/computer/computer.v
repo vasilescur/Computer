@@ -165,9 +165,7 @@ module computer ();
 
         #1;
 
-
-
-
+                
 
         // $display("instr: %b", instr_current);
         // $display("arg1: %h, arg2: %h, mid: %h", instr_arg1, instr_arg2, instr_middle_byte);
@@ -208,6 +206,9 @@ module computer ();
 
                 reg_write_id = 0;
                 #1;
+
+
+                            
             end
 
             4'h3: begin //* add
@@ -286,7 +287,7 @@ module computer ();
                 #1;
                 
                 // Process syscall
-                case(temp_1)
+                case (temp_1)
                     8'h0: begin //* NOP
                         #10;
                     end
@@ -327,6 +328,9 @@ module computer ();
                 #10;
 
                 reg_write_id = 0;
+
+
+                            
             end
 
             4'ha: begin //* ja
@@ -345,16 +349,29 @@ module computer ();
             end
 
             4'hb: begin //* cmp
+
+
+                // reg_read1_id = 6;
+                // #10;
             
-                reg_write_id = 6;
-                reg_write_value = 8'b0000_0001;
-                #20;
+                // reg_write_id = 6;
+                // #1;
+                // $display("Set reg_write_id to %d", reg_write_id);
+                // reg_write_value = 8'b0000_0001;
+                // #1;
+                // $display("Set reg_write_value to %b", reg_write_value);
+                // #20;
 
-                reg_write_id = 0;
+                // $display("$6 is %b", reg_read1_value);
 
-                reg_read1_id = 6;
-                #10;
-                $display("$6 is %b", reg_read1_value);
+                // reg_write_id = 0;
+
+                // #1;
+                // $display("Reset reg_write_id back to 0");
+
+                // reg_read1_id = 6;
+                // #10;
+                // $display("$6 is %b", reg_read1_value);
 
                 // $display("In cmp");
 
@@ -408,6 +425,10 @@ module computer ();
             end
 
             4'hd: begin //* jlt
+                            
+
+
+
                 $display("Should I jlt?");
                 reg_read1_id = 4'ha;
                 #50;
@@ -452,6 +473,9 @@ module computer ();
                 end
             end
         endcase
+
+
+        
 
         //* Reset things
         // reg_read1_id = 0;
